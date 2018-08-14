@@ -96,8 +96,25 @@ document.addEventListener('keydown', (event) => {
         // if a wall is NOT in the way
         if (targetCell.className.indexOf("wall") === -1) {
             if (targetCell.className.indexOf("box") === -1) {
-                targetCell.appendChild(player)
-
+                if (targetCell.className.indexOf("fullStorage") === -1) {
+                    targetCell.appendChild(player)
+                } else {
+                    if (targetCell2.className.indexOf("wall") === -1 &&
+                        targetCell2.className.indexOf("box") === -1 &&
+                        targetCell2.className.indexOf("fullStorage") === -1) {
+                        if (targetCell2.className.indexOf("emptyStorage") === -1) {
+                            targetCell.appendChild(player)
+                            targetCell.classList.remove("fullStorage")
+                            targetCell.classList.add("emptyStorage")
+                            targetCell2.classList.add("box")
+                        } else {
+                            targetCell.appendChild(player);
+                            targetCell.classList.remove("fullStorage")
+                            targetCell.classList.add("emptyStorage");
+                            targetCell2.classList.add("fullStorage");
+                        }
+                    }
+                }
             } else {
                 if (targetCell2.className.indexOf("wall") === -1 &&
                     targetCell2.className.indexOf("box") === -1 &&
@@ -111,13 +128,20 @@ document.addEventListener('keydown', (event) => {
                         targetCell.classList.remove("box");
                         targetCell2.classList.add("fullStorage");
                     }
-
                 }
             }
         }
-
-        if (targetCell.className.indexOf("finish") !== -1) {
-            console.log("finish")
+        boxCount = 0;
+        for (let y = 0; y < grid[y].length; y++) {
+            for (let x = 0; x < grid[y].length; x++) {
+                let cell = grid[x][y];
+                if (cell.className.indexOf("box") !== -1) {
+                    boxCount++;
+                }
+            }
+        }
+        console.log("boxCount: ", boxCount)
+        if (boxCount === 0) {
             alert("You win!!");
         }
     }
