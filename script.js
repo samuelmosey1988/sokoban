@@ -8,7 +8,7 @@ const map = [
     "WB XBBOW",
     "W   O  W",
     "WWWWWWWW"
-  ];
+];
 
 const grid = [];
 const player = document.getElementById("player")
@@ -77,41 +77,48 @@ document.addEventListener('keydown', (event) => {
         console.log("up")
         targetCell = grid[currentRowIndex - 1][currentCellIndex]
         targetCell2 = grid[currentRowIndex - 2][currentCellIndex]
-    
+
     } else if (event.key === "ArrowDown") {
         console.log("down")
 
         targetCell = grid[currentRowIndex + 1][currentCellIndex]
         targetCell2 = grid[currentRowIndex + 2][currentCellIndex]
-        
-        
+
+
     } else if (event.key === "ArrowLeft") {
         console.log("left")
 
         targetCell = grid[currentRowIndex][currentCellIndex - 1]
-        targetCell2 = grid[currentRowIndex][currentCellIndex -2]
+        targetCell2 = grid[currentRowIndex][currentCellIndex - 2]
     }
 
     if (targetCell) {
         // if a wall is NOT in the way
         if (targetCell.className.indexOf("wall") === -1) {
-            if (targetCell.className.indexOf("box") === -1){
+            if (targetCell.className.indexOf("box") === -1) {
                 targetCell.appendChild(player)
-            
-            } else {
-                if (targetCell2.className.indexOf("wall") === -1 && 
-                    targetCell2.className.indexOf("box") === -1){
 
-                    targetCell.appendChild(player)
-                    targetCell.classList.remove("box")
-                    targetCell2.classList.add("box")
+            } else {
+                if (targetCell2.className.indexOf("wall") === -1 &&
+                    targetCell2.className.indexOf("box") === -1 &&
+                    targetCell2.className.indexOf("fullStorage") === -1) {
+                    if (targetCell2.className.indexOf("emptyStorage") === -1) {
+                        targetCell.appendChild(player)
+                        targetCell.classList.remove("box")
+                        targetCell2.classList.add("box")
+                    } else {
+                        targetCell.appendChild(player);
+                        targetCell.classList.remove("box");
+                        targetCell2.classList.add("fullStorage");
+                    }
+
                 }
             }
         }
 
         if (targetCell.className.indexOf("finish") !== -1) {
             console.log("finish")
-            alert ("You win!!");
+            alert("You win!!");
         }
     }
 
