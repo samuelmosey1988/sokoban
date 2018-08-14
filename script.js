@@ -72,28 +72,37 @@ document.addEventListener('keydown', (event) => {
         console.log("right")
 
         targetCell = grid[currentRowIndex][currentCellIndex + 1]
-
+        targetCell2 = grid[currentRowIndex][currentCellIndex + 2]
     } else if (event.key === "ArrowUp") {
         console.log("up")
-
         targetCell = grid[currentRowIndex - 1][currentCellIndex]
-
+        targetCell2 = grid[currentRowIndex - 2][currentCellIndex]
+    
     } else if (event.key === "ArrowDown") {
         console.log("down")
 
         targetCell = grid[currentRowIndex + 1][currentCellIndex]
-
+        targetCell2 = grid[currentRowIndex + 2][currentCellIndex]
+        
+        
     } else if (event.key === "ArrowLeft") {
         console.log("left")
 
         targetCell = grid[currentRowIndex][currentCellIndex - 1]
-
+        targetCell2 = grid[currentRowIndex][currentCellIndex -2]
     }
 
     if (targetCell) {
-
+        // if a wall is NOT in the way
         if (targetCell.className.indexOf("wall") === -1) {
-            targetCell.appendChild(player)
+            if (targetCell.className.indexOf("box") === -1){
+                targetCell.appendChild(player)
+            }else{
+                targetCell.appendChild(player)
+                targetCell.classList.remove("box")
+                targetCell2.classList.add("box")
+
+            }
         }
 
         if (targetCell.className.indexOf("finish") !== -1) {
