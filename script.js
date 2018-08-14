@@ -97,11 +97,15 @@ document.addEventListener('keydown', (event) => {
         if (targetCell.className.indexOf("wall") === -1) {
             if (targetCell.className.indexOf("box") === -1){
                 targetCell.appendChild(player)
-            }else{
-                targetCell.appendChild(player)
-                targetCell.classList.remove("box")
-                targetCell2.classList.add("box")
+            
+            } else {
+                if (targetCell2.className.indexOf("wall") === -1 && 
+                    targetCell2.className.indexOf("box") === -1){
 
+                    targetCell.appendChild(player)
+                    targetCell.classList.remove("box")
+                    targetCell2.classList.add("box")
+                }
             }
         }
 
